@@ -1,19 +1,11 @@
 <main class="wrapper">
-  <div class="card" [routerLink]="['/note/1']">
-    <h2 class="text-lg font-bold">Note 1</h2>
-    <p class="text-slate-600">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit facilis quae 
-      tempora ex, rerum optio voluptas accusantium non repellendus perferendis eos
-      voluptates error at pariatur possimus distinctio quos quisquam impedit?
-    </p>
-  </div>
-  <div class="card" [routerLink]="['/note/2']">
-    <h2 class="text-lg font-bold">Note 2</h2>
-    <p class="text-slate-600">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit facilis quae 
-      tempora ex, rerum optio voluptas accusantium non repellendus perferendis eos
-      voluptates error at pariatur possimus distinctio quos quisquam impedit?
-    </p>
+  <div class="max-h-96 overflow-auto">
+    @for (note of allNotes; track note; let i = $index) {
+    <div class="card" [routerLink]="['/note/', i]">
+      <h2 class="text-lg font-bold">{{ note.title }}</h2>
+      <p class="text-slate-600">{{ note.content }}</p>
+    </div>
+    }
   </div>
   <button class="primary" [routerLink]="['/new-note']">+ New Note</button>
 </main>

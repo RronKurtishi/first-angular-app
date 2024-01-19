@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BehaviorSubject, } from 'rxjs';
 import { NotesService } from '../../services/notes.service';
 import { Note } from '../../interfaces/note';
 
@@ -13,11 +12,12 @@ import { Note } from '../../interfaces/note';
 })
 export class DashboardComponent implements OnInit {
   notesService = inject(NotesService);
+  allNotes: Note[] | undefined;
 
   ngOnInit(): void {
     this.notesService.getNotes()
       .subscribe((notes: Note[]) => { 
-        console.log(notes);
-      })
+        this.allNotes = notes;
+      });
   }
 }

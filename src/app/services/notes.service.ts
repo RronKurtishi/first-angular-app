@@ -1,16 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Note } from '../interfaces/note';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
   notes = new BehaviorSubject<Note[]>([]);
-  constructor() { }
+  
+  constructor() {
+    this.notes.subscribe((notesArray: Note[]) => {
+      console.log(notesArray);
+    });
+  }
 
-  createNote(note: Note) {
-    // create
+  createNote(newNote: Note) {
+    this.notes
+    .pipe(take(1))
+    .subscribe((notesArray: Note[]) => {
+      notesArray.unshift(newNote);
+      this.notes.next(notesArray);
+    });
   }
 
   getNotes(): Observable<Note[]> {
