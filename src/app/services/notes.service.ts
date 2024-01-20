@@ -9,8 +9,13 @@ export class NotesService {
   notes = new BehaviorSubject<Note[]>([]);
   
   constructor() {
+    const localStorageNotes = localStorage.getItem('notes');
+    if (localStorageNotes) {
+      this.notes.next(JSON.parse(localStorageNotes));
+    }
     this.notes.subscribe((notesArray: Note[]) => {
-      console.log(notesArray);
+      const notesString = JSON.stringify(notesArray);
+      localStorage.setItem('notes', notesString);
     });
   }
 
@@ -28,6 +33,11 @@ export class NotesService {
   }
 
   deleteNote(noteId: number) {
-    // delete note
+    this.notes
+    .pipe(take(1))
+    .subscribe((notesArray: Note[]) => {
+      notesArray.splice(noteId, 1);
+      this.notes.next(notesArray);
+    });
   }
 }

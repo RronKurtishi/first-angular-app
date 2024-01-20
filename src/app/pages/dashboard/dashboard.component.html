@@ -1,10 +1,7 @@
 <main class="wrapper">
   <div class="max-h-96 overflow-auto">
     @for (note of allNotes; track note; let i = $index) {
-    <div class="card" [routerLink]="['/note/', i]">
-      <h2 class="text-lg font-bold">{{ note.title }}</h2>
-      <p class="text-slate-600">{{ note.content }}</p>
-    </div>
+      <app-dashboard-card [note]="note" [i]="i"></app-dashboard-card>
     }
   </div>
   <button class="primary" [routerLink]="['/new-note']">+ New Note</button>

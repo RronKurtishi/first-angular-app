@@ -2,11 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotesService } from '../../services/notes.service';
 import { Note } from '../../interfaces/note';
+import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, DashboardCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

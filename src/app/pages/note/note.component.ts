@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NotesService } from '../../services/notes.service';
 import { Note } from '../../interfaces/note';
 import { filter, take } from 'rxjs';
@@ -8,13 +8,14 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-note',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss'
 })
 export class NoteComponent implements OnInit {
   route = inject(ActivatedRoute);
   notesService = inject(NotesService);
+  router = inject(Router);
   noteId: any;
   note: Note | undefined;
 
@@ -29,5 +30,10 @@ export class NoteComponent implements OnInit {
             this.note = notes[this.noteId];
           });
       });
+  }
+
+  deleteNote() {
+    this.notesService.deleteNote(this.noteId);
+    this.router.navigate(['']);
   }
 }
